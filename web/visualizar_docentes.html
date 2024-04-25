@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualizar Docentes</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  text-align: center;
+}
+
+.docentes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.docente-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  padding: 20px;
+  margin: 0 10px 20px;
+}
+
+.docente-card h2 {
+  margin-top: 0;
+}
+
+.docente-card p {
+  margin: 5px 0;
+}
+
+  </style>
+  <script src="lib/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <h1>Lista de Docentes</h1>
+
+  <div id="docentesList" class="docentes-container"></div>
+
+  <script>
+window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const response = await fetch('http://localhost:3000/docentes');
+      const docentes = await response.json();
+      
+       const docentesList = document.getElementById('docentesList');
+  
+       docentes.forEach(docente => {
+         const card = document.createElement('div');
+         card.classList.add('docente-card');
+  
+         const nome = document.createElement('h2');
+         nome.textContent = docente.nome;
+  
+         const titulacao = document.createElement('p');
+         titulacao.textContent = `Titulação: ${docente.titulacao}`;
+  
+         const email = document.createElement('p');
+         email.textContent = `Email: ${docente.email}`;
+  
+         const lattes = document.createElement('p');
+         lattes.textContent = `Currículo Lattes: ${docente.lattes}`;
+  
+         card.appendChild(nome);
+         card.appendChild(titulacao);
+         card.appendChild(email);
+         card.appendChild(lattes);
+  
+         docentesList.appendChild(card);
+       });
+     } catch (err) {
+       console.error(err.message);
+       alert('Erro ao carregar lista de docentes. Por favor, tente novamente.');
+     }
+  });
+  </script>
+</body>
+</html>
