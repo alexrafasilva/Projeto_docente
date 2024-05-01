@@ -175,6 +175,7 @@ Após configurar o ambiente, você pode executar a aplicação de cadastro de do
    ```bash
    npm start
    ```
+   OU
    ```bash
    node server.js
    ```
